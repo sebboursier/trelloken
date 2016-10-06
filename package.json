@@ -1,0 +1,25 @@
+{
+  "name": "trelloken",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebboursier/trelloken.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebboursier/trelloken/issues"
+  },
+  "homepage": "https://github.com/sebboursier/trelloken#readme",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "inquirer": "^1.2.1",
+    "node-trello": "^1.1.2",
+    "open": "0.0.5"
+  }
+}
