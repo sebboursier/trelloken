@@ -1,10 +1,12 @@
 const inquirer = require('inquirer')
 
-module.exports.onlineListBoard = onlineListBoard
-module.exports.onlineListList = onlineListList
-module.exports.onlineListCard = onlineListCard
+module.exports.board = onlineListBoard
+module.exports.list = onlineListList
+module.exports.card = onlineListCard
 
 function onlineListBoard (trello) {
+  console.log("-- Command : List all boards")
+
   trello.get("/1/members/me/boards", (err, data) => {
     if (err) throw err
     for (board in data) {
@@ -14,6 +16,8 @@ function onlineListBoard (trello) {
 }
 
 function onlineListList (trello, boardName) {
+  console.log("-- Command : List all lists of a board")
+
   if (!boardName) {
     inquirer.prompt([{
       type: "input",
@@ -47,6 +51,8 @@ function onlineListList (trello, boardName) {
 }
 
 function onlineListCard (trello, boardName, listName) {
+  console.log("-- Command : List all cards of a list of a board")
+
   if (!boardName) {
     inquirer.prompt([{
       type: "input",

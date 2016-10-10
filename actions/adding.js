@@ -1,10 +1,12 @@
 const inquirer = require('inquirer')
 
-module.exports.onlineAddBoard = onlineAddBoard
-module.exports.onlineAddList = onlineAddList
-module.exports.onlineAddCard = onlineAddCard
+module.exports.board = onlineAddBoard
+module.exports.list = onlineAddList
+module.exports.card = onlineAddCard
 
-function onlineAddBoard (trello, boardName) {
+function onlineAddBoard (trello, boardName, callback = null) {
+  console.log("-- Command : Add a board.")
+
   if(!boardName) {
     inquirer.prompt([{
       type: "input",
@@ -20,11 +22,14 @@ function onlineAddBoard (trello, boardName) {
       console.log(`Name : ${newBoard.name}`)
       console.log(`Id : ${newBoard.id}`)
       console.log(`Access Url : ${newBoard.url}`)
+      if(callback != null) callback()
     })
   }
 }
 
-function onlineAddList (trello, boardName, listName) {
+function onlineAddList (trello, boardName, listName, callback = null) {
+  console.log("-- Command : Add a list.")
+
   if (!boardName) {
     inquirer.prompt([{
       type: "input",
@@ -53,6 +58,7 @@ function onlineAddList (trello, boardName, listName) {
             console.log(`Name : ${newList.name}`)
             console.log(`Id : ${newList.id}`)
             console.log(`Access Board Url : ${data[board].url}`)
+            if(callback != null) callback()
           })
           find = true;
           break
@@ -61,12 +67,14 @@ function onlineAddList (trello, boardName, listName) {
       if(!find) {
         console.log(`There are no board named as "${boardName}"`)
         console.log(`Please check "trelloken -Lb" for the available boards`)
+        if(callback != null) callback()
       }
     })
   }
 }
 
-function onlineAddCard (trello, boardName, listName, cardName) {
+function onlineAddCard (trello, boardName, listName, cardName, callback = null) {
+  console.log("-- Command : Add a card.")
   if (!boardName) {
     inquirer.prompt([{
       type: "input",
@@ -110,6 +118,7 @@ function onlineAddCard (trello, boardName, listName, cardName) {
                   console.log(`Name : ${newCard.name}`)
                   console.log(`Id : ${newCard.id}`)
                   console.log(`Access Card Url : ${newCard.url}`)
+                  if(callback != null) callback()
                 })
                 break
               }
@@ -117,6 +126,7 @@ function onlineAddCard (trello, boardName, listName, cardName) {
             if(!listFind) {
               console.log(`There are no list named as "${listName}" in the board "${boardName}"`)
               console.log(`Please check "trelloken -b ${boardName} -Ll" for the available lists`)
+              if(callback != null) callback()
             }
           })
           break
@@ -125,6 +135,7 @@ function onlineAddCard (trello, boardName, listName, cardName) {
       if(!boardFind) {
         console.log(`There are no board named as "${boardName}"`)
         console.log(`Please check "trelloken -Lb" for the available boards`)
+        if(callback != null) callback()
       }
     })
   }

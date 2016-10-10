@@ -1,49 +1,10 @@
 const inquirer = require('inquirer')
 
-module.exports.dispatch = dispatch
+module.exports.card = onlineMovingCard
 
-var commander = {}
-var trello = {}
-
-function dispatch (t,c) {
-  commander = c
-  trello = t
-  if (commander.listing && commander.adding) {
-    console.log(`You can't use both "-L" and "-A" options`);
-  } else if (commander.listing) {
-    onlineListing(trello)
-  } else if (commander.adding) {
-    onlineAdding(trello)
-  } else if (commander.moving) {
-    onlineMoving(trello)
-  }
-}
-function onlineMoving (trello) {
-  console.log("-- Command : Move a card")
-  let boardName, listName, cardName, toListName
-  if(typeof commander.board == 'boolean') {
-    boardName = false
-  } else {
-    boardName = commander.board
-  }
-  if(typeof commander.list == 'boolean') {
-    listName = false
-  } else {
-    listName = commander.list
-  }
-  if(typeof commander.card == 'boolean') {
-    cardName = false
-  } else {
-    cardName = commander.card
-  }
-  if(typeof commander.to == 'boolean') {
-    toListName = false
-  } else {
-    toListName = commander.to
-  }
-  onlineMovingCard(trello, boardName, listName, cardName, toListName)
-}
 function onlineMovingCard (trello, boardName, listName, cardName, toListName) {
+  console.log("-- Command : Move a card to another list.")
+
   if (!boardName) {
     inquirer.prompt([{
       type: "input",
@@ -71,7 +32,7 @@ function onlineMovingCard (trello, boardName, listName, cardName, toListName) {
   } else if (!toListName) {
     inquirer.prompt([{
       type: "input",
-      name: "cardName",
+      name: "toListName",
       message: "List which the card must go?"
     }]).then((answers) => {
       onlineMovingCard(trello, boardName, listName, cardName, answers.toListName)
@@ -128,84 +89,9 @@ function onlineMovingCard (trello, boardName, listName, cardName, toListName) {
         }
       }
       if (!boardFind) {
-        console.log(`There are no board named as "${commander.board}"`)
+        console.log(`There are no board named as "${boardName}"`)
         console.log(`Please check "trelloken -Lb" for the available boards`)
       }
     })
-  }
-}
-function onlineAdding (trello) {
-  if (commander.board && commander.list && commander.card) {
-    console.log("-- Command : Add a card")
-    let boardName, listName, cardName
-    if(typeof commander.board == 'boolean') {
-      boardName = false
-    } else {
-      boardName = commander.board
-    }
-    if(typeof commander.list == 'boolean') {
-      listName = false
-    } else {
-      listName = commander.list
-    }
-    if(typeof commander.card == 'boolean') {
-      cardName = false
-    } else {
-      cardName = commander.card
-    }
-    onlineAddCard(trello, boardName, listName, cardName)
-  } else if (commander.board && commander.list) {
-    console.log("-- Command : Add a list")
-    let boardName, listName
-    if(typeof commander.board == 'boolean') {
-      boardName = false
-    } else {
-      boardName = commander.board
-    }
-    if(typeof commander.list == 'boolean') {
-      listName = false
-    } else {
-      listName = commander.list
-    }
-    onlineAddList(trello, boardName, listName)
-  } else if (commander.board) {
-    console.log("-- Command : Add a board")
-    let boardName
-    if(typeof commander.board == 'boolean') {
-      boardName = false
-    } else {
-      boardName = commander.board
-    }
-    onlineAddBoard(trello, boardName)
-  }
-}
-
-function onlineListing (trello) {
-  if (commander.board && commander.list && commander.card) {
-    console.log("-- Command : List Cards of a list of a board")
-    let boardName, listName
-    if(typeof commander.board == 'boolean') {
-      boardName = false
-    } else {
-      boardName = commander.board
-    }
-    if(typeof commander.list == 'boolean') {
-      listName = false
-    } else {
-      listName = commander.list
-    }
-    onlineListCard(trello, boardName, listName)
-  } else if (commander.board && commander.list) {
-    console.log("-- Command : List Columns of a board")
-    let boardName
-    if(typeof commander.board == 'boolean') {
-      boardName = false
-    } else {
-      boardName = commander.board
-    }
-    onlineListList(trello, boardName)
-  } else if (commander.board) {
-    console.log("-- Command : List Boards")
-    onlineListBoard(trello)
   }
 }
