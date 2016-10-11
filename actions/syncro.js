@@ -23,6 +23,9 @@ function push(t, commander, sqlite) {
 
 }
 
+// Cette boucle sert à effectuer les ajouts un par un.
+// Car sqlite etant asyncrone, le problème était
+// => j'ajoute offline un tableau, puis offline une list dans ce tableau, il faut donc que la syncronisation se fasse dans l'ordre.
 function boucleTreatment() {
     i++
     if(i < actions.length) {

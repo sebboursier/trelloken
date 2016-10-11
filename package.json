@@ -1,7 +1,7 @@
 {
   "name": "trelloken",
   "version": "1.0.0",
-  "description": "",
+  "description": "Projet scolaire, à IngéSup Bordeaux, B3 2016.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

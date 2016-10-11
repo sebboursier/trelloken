@@ -1,6 +1,6 @@
 const commander = require('commander')
 
-module.exports.commander = commander
+module.exports = commander
 
 commander.version('1.0.0')
   .option('-G, --getToken', 'Get the token user by your default browser')

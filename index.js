@@ -2,13 +2,15 @@
 
 console.log("----- TrelLoken -----");
 
+// Initialisation des modules externes
 const inquirer = require('inquirer')
 const open = require('open')
 const fs = require('fs')
 const node_trello = require('node-trello')
 const sqlite = require('sqlite')
 
-const commander = require('./commander.js').commander
+// Initialisation des modules internes
+const commander = require('./commander.js')
 const offAdd = require('./actions/offlineAdding.js')
 const onAdd = require('./actions/adding.js')
 const offList = require('./actions/offlinelisting.js')
@@ -16,7 +18,10 @@ const onList = require('./actions/listing.js')
 const onMove = require('./actions/moving.js')
 const syncro = require('./actions/syncro.js')
 
+// La clé API Trello de l'application (me la volez pas svp, mais je suis bien obligé de la mettre là)
 const apiKey = '1d7adb1591ed5a5738c39e6fa1118378'
+
+// On commence à dispatcher les routes des options
 
 if(commander.getToken) {
   console.log("-- Command : Get Token")
